@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 include_directories(include)
 
-set(SOURCES source/main.cpp source/Display.cpp)
+file(GLOB_RECURSE SOURCES source/*.cpp)
 add_executable(main ${SOURCES})
 
 # SDL2 setup
