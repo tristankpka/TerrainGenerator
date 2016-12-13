@@ -1,6 +1,7 @@
 #include <iostream>
 #include <GL/glew.h>
 #include "Display.hpp"
+#include "Shader.hpp"
 
 static const int DISPLAY_WIDTH = 800;
 static const int DISPLAY_HEIGHT = 600;
@@ -9,6 +10,8 @@ int main()
 {
   Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "Terrain Generator");
   
+  Shader shader("../resource/basicShader");
+
   SDL_Event e;
   bool isRunning = true;
   while(isRunning)
@@ -19,6 +22,9 @@ int main()
 	    isRunning = false;
 	}
       display.Clear(0.0f, 0.15f, 0.3f, 1.0f);
+
+      shader.Bind();
+
       display.SwapBuffers();
       SDL_Delay(1);
     }
