@@ -46,6 +46,9 @@ cscope.out
 cscope.in.out
 cscope.po.out
 
-
 # backup files
 *~
+
+#build bin
+bin/
+build/
