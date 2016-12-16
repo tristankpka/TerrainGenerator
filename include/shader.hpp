@@ -2,7 +2,9 @@
 #define SHADER_HPP
 
 #include <string>
+
 #include <GL/glew.h>
+#include <SFML/OpenGL.hpp>
 
 class Shader
 {

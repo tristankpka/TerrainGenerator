@@ -1,32 +1,35 @@
-cmake_minimum_required (VERSION 2.8.11)
+cmake_minimum_required (VERSION 2.8)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 project (terrain_generator)
 
 # needed for autocompletion
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# use C++11 features
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
-# set warning level
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
 
 include_directories(include)
-
 file(GLOB_RECURSE SOURCES source/*.cpp)
-add_executable(main ${SOURCES})
+set(EXECUTABLE_NAME "terrain_generator")
+add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
-# SDL2 setup
-set(SDL2_INCLUDE_DIR "/usr/local/include/SDL2")
-set(SDL2_LIBRARY "/usr/local/lib/libSDL2.so")
-target_include_directories(main PUBLIC "/usr/local/include/SDL2")
-target_link_libraries(main "${SDL2_LIBRARY}")
+# SFML setup 
+find_package(SFML 2 REQUIRED system window graphics network audio)
+if(SFML_FOUND)
+  include_directories(${SFML_INCLUDE_DIR})
+  target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
+endif()
 
-# OpengGl setup
-find_package(OpenGL REQUIRED) 
-include_directories(${OPENGL_INCLUDE_DIRS})
-target_link_libraries(main ${OPENGL_LIBRARIES})
+# OpengGL setup
+find_package(OpenGL REQUIRED)
+if(OPENGL_FOUND) 
+  include_directories(${OPENGL_INCLUDE_DIRS})
+  target_link_libraries(${EXECUTABLE_NAME} ${OPENGL_LIBRARIES})
+endif()
 
 # GLEW setup
 find_package(GLEW REQUIRED)
-include_directories(${GLEW_INCLUDE_DIRS})
-target_link_libraries(main ${GLEW_LIBRARIES})
+if(GLEW_FOUND)
+  include_directories(${GLEW_INCLUDE_DIRS})
+  target_link_libraries(${EXECUTABLE_NAME} ${GLEW_LIBRARIES})
+endif()

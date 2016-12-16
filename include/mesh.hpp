@@ -1,8 +1,8 @@
 #ifndef MESH_HPP
 #define MESH_HPP
 
-#include <glm/glm.hpp>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 class Vertex
 {
