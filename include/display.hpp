@@ -23,8 +23,8 @@ private:
   static const unsigned int MAJOR_VERSION = 3;
   static const unsigned int MINOR_VERSION = 24;
 
-  void operator=(const Display& display) {}
-  Display(const Display& display) {}
+  Display& operator=(const Display& display) = default;
+  Display(const Display& display) = default;
   sf::Window m_window;
 };
 

@@ -25,8 +25,8 @@ public:
   virtual ~Mesh();
 protected:
 private:
-  Mesh(const Mesh& other);
-  Mesh& operator=(const Mesh& other);
+  Mesh(const Mesh& other) = default;
+  Mesh& operator=(const Mesh& other) = default;
   
   enum
     {
