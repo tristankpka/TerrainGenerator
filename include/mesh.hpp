@@ -4,22 +4,34 @@
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 
+#include <string>
+#include <vector>
+#include "obj_loader.hpp"
+
 class Vertex
 {
 public:
-  Vertex(const glm::vec3& pos)
+  Vertex(const glm::vec3& pos, const glm::vec2& texCoord, const glm::vec3& normal)
   {
-    m_pos = pos;
+    this->pos = pos;
+    this->texCoord = texCoord;
+    this->normal = normal;	
   }
+  // return by ptrs not mandatory
+  inline glm::vec3* GetPos() { return &pos; }
+  inline glm::vec2* GetTexCoord() { return &texCoord; }
+  inline glm::vec3* GetNormal() { return &normal; }
 protected:
 private:
-  glm::vec3 m_pos;
+  glm::vec3 pos;
+  glm::vec2 texCoord;
+  glm::vec3 normal;
 };
 
 class Mesh
 {
 public:
-  Mesh(Vertex* vertices, unsigned int numVertices);
+  Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned numIndices);
   void Draw();
 
   virtual ~Mesh();
@@ -31,7 +43,9 @@ private:
   enum
     {
       POSITION_VB,
-      
+      TEXCOORD_VB,
+      NORMAL_VB,
+      INDEX_VB,
       NUM_BUFFERS
     };
 
