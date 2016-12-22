@@ -21,7 +21,7 @@ public:
 protected:
 private:
   static const unsigned int NUM_SHADERS = 2;
-  static const unsigned int NUM_UNIFORMS = 3;
+  static const unsigned int NUM_UNIFORMS = 4;
   Shader (const Shader& other) = default;
   Shader& operator=(const Shader& other) = default;
   

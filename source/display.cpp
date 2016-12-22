@@ -18,7 +18,7 @@ Display::Display(int width, int height, const std::string& title):
   glCullFace(GL_BACK);
   
   // WIREFRAME
-  glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+  //glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 }
 
 Display::~Display()
