@@ -11,6 +11,13 @@
 class Vertex
 {
 public:
+  Vertex()
+  {
+    this->pos = glm::vec3(0, 0, 0);
+    this->texCoord = glm::vec2(0, 0);
+    this->normal = glm::vec3(0, 0, 0);	
+
+  }
   Vertex(const glm::vec3& pos, const glm::vec2& texCoord, const glm::vec3& normal)
   {
     this->pos = pos;
