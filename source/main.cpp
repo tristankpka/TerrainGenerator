@@ -17,7 +17,7 @@
 static const int DISPLAY_WIDTH = 1024;
 static const int DISPLAY_HEIGHT = 768;
 static const int TERRAIN_SIZE = 128;
-static const int TERRAIN_SAMPLE = 512;
+static const int TERRAIN_SAMPLE = 128;
 static const float TERRAIN_TILE_SIZE = (float)TERRAIN_SIZE/(float)TERRAIN_SAMPLE;
 static const int TERRAIN_VERTICES_BY_TILE = 6;
 int main()
@@ -67,9 +67,9 @@ int main()
   Mesh mesh(vertices, sizeof(vertices)/sizeof(vertices[0]), indices, sizeof(indices)/sizeof(indices[0]));
   Shader shader("../resource/wireframeShader");
   Texture texture("../resource/bricks2.jpg");
-  Transform transform;;
-  Camera camera(glm::vec3(0.0f, 0.0f, -5.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);  
- 
+  Camera camera(glm::vec3(TERRAIN_SIZE/2.0f, TERRAIN_SIZE/2.0f, -8.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);  
+  Transform transform;
+  Light light(glm::vec3(TERRAIN_SIZE/2.0f, TERRAIN_SIZE/2.0f, -8.0f));
   bool isRunning = true;
   while(isRunning)
     {
@@ -91,12 +91,8 @@ int main()
 	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	    camera.Pitch(0.5f);
 	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	    camera.RotateY(-0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	    camera.RotateY(0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	    camera.RotateZ(-0.8f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	    camera.RotateZ(0.8f);
 	}
       
@@ -106,7 +102,7 @@ int main()
       shader.Bind();
       texture.Bind();
      
-      shader.Update(transform, camera);
+      shader.Update(transform, camera, light);
       
       mesh.Draw();
       

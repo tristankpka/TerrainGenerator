@@ -47,16 +47,16 @@ void Shader::Bind()
   glUseProgram(m_program);
 }
 
-void Shader::Update(const Transform& transform, const Camera& camera)
+void Shader::Update(const Transform& transform, const Camera& camera, const Light& light)
 {
   glm::mat4 MVP = transform.GetMVP(camera);
   glm::mat4 M  = transform.GetModel();
   glm::mat4 V  = camera.GetView();
-
+  glm::vec3 lightPos = light.GetPos();
   glUniformMatrix4fv(m_uniforms[0], 1, GL_FALSE, &MVP[0][0]);
   glUniformMatrix4fv(m_uniforms[1], 1, GL_FALSE, &V[0][0]);
   glUniformMatrix4fv(m_uniforms[2], 1, GL_FALSE, &M[0][0]);
-  glUniform3f(m_uniforms[3], 10.0f, 10.0f, -10.0f);
+  glUniform3f(m_uniforms[3], lightPos.x, lightPos.y, lightPos.z);
 }
 
 static GLuint CreateShader(const std::string& text, GLenum shaderType)

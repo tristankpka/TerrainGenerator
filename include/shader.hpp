@@ -8,13 +8,14 @@
 
 #include "transform.hpp"
 #include "camera.hpp"
+#include "light.hpp"
 
 class Shader
 {
 public:
   Shader(const std::string& filename);
   void Bind();
-  void Update(const Transform& transform, const Camera& camera);
+void Update(const Transform& transform, const Camera& camera, const Light& light);
 
   virtual ~Shader();
 

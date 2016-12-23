@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/transform.hpp>
 
-struct Camera
+class Camera
 {
 public:
   Camera(const glm::vec3& pos, float fov, float aspect, float zNear, float zFar)
@@ -78,8 +78,6 @@ public:
     forward = glm::vec3(glm::normalize(rotation * glm::vec4(forward, 0.0)));
     up = glm::vec3(glm::normalize(rotation * glm::vec4(up, 0.0)));
   }
-
-  //inline 
 
 protected:
 private:
