@@ -18,22 +18,20 @@ static const int DISPLAY_WIDTH = 1024;
 static const int DISPLAY_HEIGHT = 768;
 static const int TERRAIN_SIZE = 128;
 static const int TERRAIN_SAMPLE = 512;
-static const float TERRAIN_TRI_SIZE = (float)TERRAIN_SIZE/(float)TERRAIN_SAMPLE;
+static const float TERRAIN_TILE_SIZE = (float)TERRAIN_SIZE/(float)TERRAIN_SAMPLE;
+static const int TERRAIN_VERTICES_BY_TILE = 6;
 int main()
 {
   std::random_device rd;
   std::mt19937 rng(rd()); 
   std::uniform_real_distribution<float> uni(0, 0.5f); // guaranteed unbiased
+  
   Vertex vertices[TERRAIN_SIZE * TERRAIN_SIZE];
   for(int x = 0; x < TERRAIN_SIZE; x++)
-    {
       for(int y = 0; y < TERRAIN_SIZE; y++)
-  	{
-  	  vertices[x * TERRAIN_SIZE + y] = Vertex(glm::vec3(x * TERRAIN_TRI_SIZE, y * TERRAIN_TRI_SIZE, uni(rng)), glm::vec2(0, 0), glm::vec3(0, 0, 0));
-  	}
-    }
+  	  vertices[x * TERRAIN_SIZE + y] = Vertex(glm::vec3(x * TERRAIN_TILE_SIZE, y * TERRAIN_TILE_SIZE, uni(rng)), glm::vec2(0, 0), glm::vec3(0, 0, 0));
  
-  unsigned int indices[TERRAIN_SIZE * TERRAIN_SIZE * 6];
+  unsigned int indices[TERRAIN_SIZE * TERRAIN_SIZE * TERRAIN_VERTICES_BY_TILE];
   int index = 0;
   for(int x = 0; x < TERRAIN_SIZE-1; x++)
     {
@@ -47,11 +45,11 @@ int main()
   	  indices[index + 4] = (offset + TERRAIN_SIZE + 1);
   	  indices[index + 5] = (offset + TERRAIN_SIZE);
 	  
-  	  index += 6;
+  	  index += TERRAIN_VERTICES_BY_TILE;
   	}
     }
   
-  for(int i = 0; i < TERRAIN_SIZE * TERRAIN_SIZE * 6; i = i+3)
+  for(int i = 0; i < TERRAIN_SIZE * TERRAIN_SIZE * TERRAIN_VERTICES_BY_TILE; i = i+3)
     {
       glm::vec3 v0 = *(vertices[indices[i]].GetPos());
       glm::vec3 v1 = *(vertices[indices[i + 1]].GetPos());
