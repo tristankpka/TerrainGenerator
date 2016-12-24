@@ -36,9 +36,9 @@ public:
     return VP * M;//camera.GetViewProjection() * GetModel();
   }
 
-  inline glm::vec3* GetPos() { return &pos; }
-  inline glm::vec3* GetRot() { return &rot; }
-  inline glm::vec3* GetScale() { return &scale; }
+  inline glm::vec3 GetPos() const { return pos; }
+  inline glm::vec3 GetRot() const { return rot; }
+  inline glm::vec3 GetScale() const { return scale; }
 
   inline void SetPos(glm::vec3& pos) { this->pos = pos; }
   inline void SetRot(glm::vec3& rot) { this->rot = rot; }

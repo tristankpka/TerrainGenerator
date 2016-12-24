@@ -2,7 +2,7 @@
 
 #include <vector>
 
-Mesh::Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned numIndices)
+Mesh::Mesh(std::vector<Vertex> vertices, unsigned int numVertices, std::vector<unsigned int> indices, unsigned numIndices)
 {
   m_drawCount = numIndices;
   
@@ -19,9 +19,9 @@ Mesh::Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, un
   
   for(unsigned int i = 0; i < numVertices; i++)
     {
-      positions.push_back(*vertices[i].GetPos());
-      texCoords.push_back(*vertices[i].GetTexCoord());
-      normals.push_back(*vertices[i].GetNormal());
+      positions.push_back(vertices[i].GetPos());
+      texCoords.push_back(vertices[i].GetTexCoord());
+      normals.push_back(vertices[i].GetNormal());
     }
 
   glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);

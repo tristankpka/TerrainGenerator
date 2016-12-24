@@ -25,9 +25,10 @@ public:
     this->normal = normal;	
   }
   // return by ptrs not mandatory
-  inline glm::vec3* GetPos() { return &pos; }
-  inline glm::vec2* GetTexCoord() { return &texCoord; }
-  inline glm::vec3* GetNormal() { return &normal; }
+  inline glm::vec3 GetPos() const { return pos; }
+  inline glm::vec2 GetTexCoord() const { return texCoord; }
+  inline glm::vec3 GetNormal() const { return normal; }
+  inline void SetNormal(const glm::vec3& n) { normal = n; }
 protected:
 private:
   glm::vec3 pos;
@@ -38,7 +39,7 @@ private:
 class Mesh
 {
 public:
-  Mesh(Vertex* vertices, unsigned int numVertices, unsigned int* indices, unsigned numIndices);
+  Mesh(std::vector<Vertex> vertices, unsigned int numVertices, std::vector<unsigned int> indices, unsigned numIndices);
   void Draw();
 
   virtual ~Mesh();
