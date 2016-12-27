@@ -17,7 +17,7 @@ void main()
 	// Light emission properties
 	// You probably want to put them as uniforms
 	vec3 LightColor = vec3(1,1,1);
-	float LightPower = 30.0f;
+	float LightPower = 200.0f;
 
 	// Distance to the light
 	float distance = length( LightPosition_worldspace - Position_worldspace );

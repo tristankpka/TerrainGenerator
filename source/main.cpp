@@ -18,14 +18,15 @@
 static const int DISPLAY_WIDTH = 1024;
 static const int DISPLAY_HEIGHT = 768;
 
+
 int main()
 {
   Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "Terrain Generator");
-  Terrain terrain; 
+  Terrain terrain("../resource/terrain_heightmap.png"); 
   Shader shader("../resource/basicShader");
-  Camera camera(glm::vec3(128.0f/2.0f, 128.0f/2.0f, -8.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 100.0f);  
+  Camera camera(glm::vec3(256.0f/2.0f, 256.0f/2.0f, -8.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 400.0f);  
   Transform transform;
-  Light light(glm::vec3(128.0f/2.0f, 128.0f/2.0f, -8.0f));
+  Light light(glm::vec3(256.0f/2.0f, 256.0f/2.0f, 10.0f));
   
   bool isRunning = true;
   while(isRunning)
