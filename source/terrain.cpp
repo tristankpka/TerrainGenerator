@@ -1,5 +1,11 @@
 #include "terrain.hpp"
 
+static const int TERRAIN_SIZE = 256;
+static const int TERRAIN_VERTICES_BY_TILE = 6;
+static const int TERRAIN_SAMPLE = 4;
+static const float TERRAIN_TILE_SIZE = (float)TERRAIN_SIZE/(float)TERRAIN_SAMPLE;
+static const float TERRAIN_HEIGHT_SCALING = 0.25f;
+
 Terrain::Terrain(const std::string& heightMapFilename)
 {
 
@@ -9,8 +15,10 @@ Terrain::Terrain(const std::string& heightMapFilename)
   m_vertices.reserve(TERRAIN_SIZE * TERRAIN_SIZE);
   for(int x = 0; x < TERRAIN_SIZE; x++)
     for(int y = 0; y < TERRAIN_SIZE; y++)
-      m_vertices.push_back(Vertex(glm::vec3(x * TERRAIN_TILE_SIZE, y * TERRAIN_TILE_SIZE, heightMap.getPixel(x,y).r * TERRAIN_HEIGHT_SCALING), glm::vec2(0, 0), glm::vec3(0, 0, 0)));
+      m_vertices.push_back(Vertex(glm::vec3(x, y , 0 ), glm::vec2(1024.0f/x, 1024.0/y), glm::vec3(0, 0, 0)));
+  //heightMap.getPixel(x,y).r * TERRAIN_HEIGHT_SCALING
   
+
   m_indices.reserve(TERRAIN_SIZE * TERRAIN_SIZE * TERRAIN_VERTICES_BY_TILE);
   for(int x = 0; x < TERRAIN_SIZE-1; x++)
     {
@@ -25,9 +33,10 @@ Terrain::Terrain(const std::string& heightMapFilename)
 	  m_indices.push_back(offset + TERRAIN_SIZE);
 	}
     }
-  
+    
   for(int i = 0; i < TERRAIN_SIZE * TERRAIN_SIZE * TERRAIN_VERTICES_BY_TILE; i = i+3)
-    {
+    {      
+      //calculate normals
       glm::vec3 v0 = m_vertices[m_indices[i]].GetPos();
       glm::vec3 v1 = m_vertices[m_indices[i + 1]].GetPos();
       glm::vec3 v2 = m_vertices[m_indices[i + 2]].GetPos();

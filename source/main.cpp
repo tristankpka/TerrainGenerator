@@ -22,9 +22,10 @@ static const int DISPLAY_HEIGHT = 768;
 int main()
 {
   Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "Terrain Generator");
-  Terrain terrain("../resource/terrain_heightmap.png"); 
+  Terrain terrain("../resource/terrain_heightmap.png");
+  Texture texture("../resource/debug.jpg");
   Shader shader("../resource/basicShader");
-  Camera camera(glm::vec3(256.0f/2.0f, 256.0f/2.0f, -8.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 400.0f);  
+  Camera camera(glm::vec3(256.0f/2.0f, 256.0f/2.0f, -8.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 500.0f);  
   Transform transform;
   Light light(glm::vec3(256.0f/2.0f, 256.0f/2.0f, 10.0f));
   
@@ -56,7 +57,7 @@ int main()
       
 
       display.Clear(0, 0, 0, 1.0f);
-      
+      texture.Bind();
       shader.Bind();
       shader.Update(transform, camera, light);
       

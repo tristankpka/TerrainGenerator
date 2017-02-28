@@ -17,7 +17,7 @@ Shader::Shader(const std::string& fileName)
     glAttachShader(m_program, m_shaders[i]);
   
   glBindAttribLocation(m_program, 0, "vertexPosition_modelspace");
-  //texture attrib location
+  glBindAttribLocation(m_program, 1, "vertexUV");
   glBindAttribLocation(m_program, 2, "vertexNormal_modelspace");
   
   glLinkProgram(m_program);

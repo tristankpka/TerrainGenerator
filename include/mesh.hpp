@@ -29,6 +29,7 @@ public:
   inline glm::vec2 GetTexCoord() const { return texCoord; }
   inline glm::vec3 GetNormal() const { return normal; }
   inline void SetNormal(const glm::vec3& n) { normal = n; }
+  inline void SetTexCoord(const glm::vec2& tc) { texCoord = tc; }
 protected:
 private:
   glm::vec3 pos;

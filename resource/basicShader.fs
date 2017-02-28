@@ -2,6 +2,7 @@
 
 // Interpolated values from the vertex shaders
 in vec3 Position_worldspace;
+in vec2 UV;
 in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
@@ -9,8 +10,8 @@ in vec3 LightDirection_cameraspace;
 // Ouput data
 out vec3 color;
 
-//uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
+uniform sampler2D TextureSampler;
 
 void main()
 {
@@ -18,6 +19,11 @@ void main()
 	// You probably want to put them as uniforms
 	vec3 LightColor = vec3(1,1,1);
 	float LightPower = 200.0f;
+
+	// Material properties
+	vec3 MaterialDiffuseColor = texture( TextureSampler, UV ).rgb;
+	vec3 MaterialAmbientColor = vec3(0.15,0.15,0.15) * MaterialDiffuseColor;
+	vec3 MaterialSpecularColor = vec3(0.3,0.3,0.3);
 
 	// Distance to the light
 	float distance = length( LightPosition_worldspace - Position_worldspace );
@@ -43,10 +49,13 @@ void main()
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 	
-
-	
-	// diffuse + ambiant
-	color = vec3(0.1,0.1,0.1) + LightColor * LightPower * cosTheta / (distance*distance) + LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+	color = 
+		// Ambient : simulates indirect lighting
+		MaterialAmbientColor +
+		// Diffuse : "color" of the object
+		MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
+		// Specular : reflective highlight, like a mirror
+		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 
 }
 

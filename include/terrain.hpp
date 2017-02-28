@@ -12,12 +12,6 @@
 
 #include "mesh.hpp"
 
-static const int TERRAIN_SIZE = 256;
-static const int TERRAIN_VERTICES_BY_TILE = 6;
-static const int TERRAIN_SAMPLE = 256;
-static const float TERRAIN_TILE_SIZE = (float)TERRAIN_SIZE/(float)TERRAIN_SAMPLE;
-static const float TERRAIN_HEIGHT_SCALING = 0.25f;
-
 class Terrain
 {
 public:
