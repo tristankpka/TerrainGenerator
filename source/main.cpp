@@ -21,7 +21,10 @@ static const sf::Time TIME_PER_FRAME = sf::seconds(1.f/60.f);
 
 int main()
 {
-  Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "Terrain Generator");
+	Application app;
+	app.run();
+}
+
   Terrain terrain("../resource/terrain_heightmap.png");
   Texture texture("../resource/debug.jpg");
   Shader shader("../resource/basicShader");

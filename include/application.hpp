@@ -13,24 +13,23 @@ class Application
 {
 public:
   Application();
-  void                run();
+  void                	run();
 
 private:
-  void                processInputs();
-  void                update(sf::Time elapsedTime);
-  void                updateStatistics(sf::Time elapsedTime);
-  void                render();
+  void                	processInputs();
+  void                	update(sf::Time elapsedTime);
+  void                	updateStatistics(sf::Time elapsedTime);
+  void 				  	render();
 
 private:
-  static const int DISPLAY_WIDTH = 1024;
-  static const int DISPLAY_HEIGHT = 768;
-  static const sf::Time TIME_PER_FRAME = sf::seconds(1.f/60.f);
+  static const int 	  	DISPLAY_WIDTH = 1024;
+  static const int 	  	DISPLAY_HEIGHT = 768;
+  static const sf::Time TIME_PER_FRAME;
 
-  sf::RenderWindow    m_window;
+  Display    			m_display;
+  Camera				m_camera;
+  Terrain				m_terrain;
 
-  sf::Text            m_statisticsText;
-  sf::Time            m_statisticsUpdateTime;
-  std::size_t	      m_statisticsNumFrames;
 };
 
 #endif // APPLICATION_H
