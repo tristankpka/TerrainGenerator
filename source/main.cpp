@@ -19,7 +19,6 @@ static const int DISPLAY_WIDTH = 1024;
 static const int DISPLAY_HEIGHT = 768;
 static const sf::Time TIME_PER_FRAME = sf::seconds(1.f/60.f);
 
-
 int main()
 {
   Display display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "Terrain Generator");
