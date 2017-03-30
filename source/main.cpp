@@ -17,6 +17,7 @@
 
 static const int DISPLAY_WIDTH = 1024;
 static const int DISPLAY_HEIGHT = 768;
+static const sf::Time TIME_PER_FRAME = sf::seconds(1.f/60.f);
 
 
 int main()
@@ -29,30 +30,39 @@ int main()
   Transform transform;
   Light light(glm::vec3(256.0f/2.0f, 256.0f/2.0f, 10.0f));
   
+
+  sf::Clock clock;
+  sf::Time timeSinceLastUpdate = sf::Time::Zero;
+  
   bool isRunning = true;
   while(isRunning)
     {
-      sf::Event event;
-      while(display.PollEvent(event))
+      timeSinceLastUpdate += clock.restart();
+      while(timeSinceLastUpdate > TIME_PER_FRAME)
 	{
-	  if(event.type == sf::Event::Closed)
-	    isRunning = false;
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	    camera.MoveForward(0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	    camera.MoveBackward(0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	    camera.MoveRight(0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	    camera.MoveLeft(0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
-	    camera.Pitch(-0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	    camera.Pitch(0.5f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-	    camera.RotateZ(-0.8f);
-	  if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	    camera.RotateZ(0.8f);
+	  timeSinceLastUpdate -= TIME_PER_FRAME;
+	  sf::Event event;
+	  while(display.PollEvent(event))
+	    {
+	      if(event.type == sf::Event::Closed)
+		isRunning = false;
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		camera.MoveForward(0.5f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		camera.MoveBackward(0.5f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		camera.MoveRight(0.5f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		camera.MoveLeft(0.5f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+		camera.Pitch(-0.5f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+		camera.Pitch(0.5f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		camera.RotateZ(-0.8f);
+	      if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+		camera.RotateZ(0.8f);
+	    }
 	}
       
 
