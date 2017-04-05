@@ -8,6 +8,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "display.hpp"
+#include "camera.hpp"
+#include "terrain.hpp"
+#include "light.hpp"
+#include "shader.hpp"
+#include "texture.hpp"
 
 class Application
 {
@@ -29,7 +35,8 @@ private:
   Display    			m_display;
   Camera				m_camera;
   Terrain				m_terrain;
-
+  Texture				m_texture;
+  Shader				m_shader;
 };
 
 #endif // APPLICATION_H

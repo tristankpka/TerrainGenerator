@@ -1,12 +1,17 @@
 #include "application.hpp"
-#include <iostream>
+
+#include "texture.hpp"
+#include "shader.hpp"
 
 const sf::Time Application::TIME_PER_FRAME = sf::seconds(1.f/60.f);
 
 Application::Application():
     m_display(DISPLAY_WIDTH, DISPLAY_HEIGHT, "Terrain Generator"),
     m_camera(glm::vec3(256.0f/2.0f, 256.0f/2.0f, -8.0f), 70.0f, (float)DISPLAY_WIDTH/(float)DISPLAY_HEIGHT, 0.1f, 500.0f),
-    m_terrain("../resource/terrain_heightmap.png")
+    m_terrain("../resource/terrain_heightmap.png"),
+    m_texture("../resource/debug.jpg"),
+    m_shader("../resource/basicShader")
+
 {}
 
 void Application::processInputs()
@@ -39,19 +44,19 @@ void Application::processInputs()
 
 void Application::update(sf::Time elapsedTime)
 {
+    Transform transform;
+    Light light(glm::vec3(256.0f/2.0f, 256.0f/2.0f, 10.0f));
 
+    m_shader.Update(transform, m_camera, light);
 }
 
 void Application::render()
 {
     m_display.Clear(0, 0, 0, 1.0f);
 
-
-	shader.Update(transform, camera, light);
-
 	//terrain
-	texture.Bind();
-	shader.Bind();
+	m_texture.Bind();
+	m_shader.Bind();
 	m_terrain.Draw();
 
 	// display
@@ -63,7 +68,7 @@ void Application::run()
 {
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
-    while(m_display.isOpen())
+    while(m_display.IsOpen())
     {
         timeSinceLastUpdate += clock.restart();
         while(timeSinceLastUpdate > TIME_PER_FRAME)

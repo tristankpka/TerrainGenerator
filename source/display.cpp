@@ -41,3 +41,13 @@ bool Display::PollEvent(sf::Event& event)
 {
   return m_window.pollEvent(event);
 }
+
+void Display::Close()
+{
+  m_window.close();
+}
+
+bool Display::IsOpen()
+{
+  return m_window.isOpen();
+}
